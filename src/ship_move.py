@@ -1,7 +1,7 @@
 import time
 import pygame
 from src.ship import Ship
-import pause_menu as pm
+import src.pause_menu as pm
 
 TURN_SPEED = 4
 SPEED = 8
@@ -9,19 +9,14 @@ ACCELERATE = .5
 DRIFT = .1
 
 
-def main():
-    # initialize pygame module
-    pygame.init()
-    pygame.key.set_repeat(0, 0)
-
-    screen = pygame.display.set_mode((720, 540))
-
-    cursor = pygame.image.load("../images/icon.png")
+def main(filePrefix=""):
+    screen = pygame.display.get_surface()
+    cursor = pygame.image.load(filePrefix + "images/icon.png")
     pygame.mouse.set_visible(False)
-    background = pygame.image.load("../images/background.png")
+    background = pygame.image.load(filePrefix + "images/background.png")
     center = (screen.get_size()[0] / 2, screen.get_size()[1] / 2)
-    ship = Ship(pygame.image.load("../images/ship.png"), center)
-    ship.addFrontGun(pygame.image.load("../images/gun.png"))
+    ship = Ship(pygame.image.load(filePrefix + "images/ship.png"), center)
+    ship.addFrontGun(pygame.image.load(filePrefix + "images/gun.png"))
     ship_drift = 0
     ship_turn_drift = 0
     move_right = False
@@ -135,4 +130,7 @@ def main():
                 exit()
 
 if __name__ == "__main__":
-    main()
+    pygame.init()
+    pygame.display.set_mode((720, 540))
+    filePrefix = "../"
+    main(filePrefix)

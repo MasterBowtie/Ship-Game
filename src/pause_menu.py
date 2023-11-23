@@ -2,8 +2,8 @@ import pygame
 
 def menu(screen, mouse_pos):
     pygame.mouse.set_visible(True)
-    menu_base = pygame.image.load("../images/menu_base.png")
-    menu_button = pygame.image.load("../images/menu_button.png")
+    menu_base = pygame.image.load("images/menu_base.png")
+    menu_button = pygame.image.load("images/menu_button.png")
     menu_pos = (screen.get_size()[0]/2 - menu_base.get_size()[0]/2, screen.get_size()[1]/2 - menu_base.get_size()[1]/2)
     contiue_pos = (screen.get_size()[0]/2 - menu_button.get_size()[0]/2, menu_pos[1]* 4/2)
     exit_pos = (screen.get_size()[0]/2 - menu_button.get_size()[0]/2, menu_pos[1]* 6/2)
