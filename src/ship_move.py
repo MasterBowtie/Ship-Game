@@ -26,6 +26,7 @@ def main(filePrefix=""):
     move_left = False
     move_forward = False
     move_backward = False
+    missles = []
 
     running = True
     previous = time.time()
@@ -60,6 +61,19 @@ def main(filePrefix=""):
                 move_forward = False
             if event.dict["unicode"] == "s" or event.dict["unicode"] == "S":
                 move_backward = False
+
+        for event in pygame.event.get(pygame.MOUSEBUTTONDOWN):
+            if event.dict["button"] == 1:
+                missle = ship.fireFrontGun()
+                missle.fire()
+                missles.append(missle)
+
+        temp = []
+        for missle in missles:
+            hit = missle.drawMissle(screen)
+            if not hit:
+                temp.append(missle)
+        missles = temp
 
         if move_forward and ship_drift < SPEED:
             ship_drift += ACCELERATE
