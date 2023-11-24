@@ -2,14 +2,14 @@ import pygame
 from src.gun import Gun
 import math
 
+IMAGE = "images/ship.png"
 class Ship:
-    def __init__(self, ship, position, rotation=0):
-        self.__ship_image = ship
+    def __init__(self, position, rotation=0):
+        self.__ship_image = pygame.image.load(IMAGE)
         self.__position = position
         self.__rotation = rotation
         self.__gun_front = None
         self.__gun_back = None
-        self.__moves = [False, False, False, False]
 
     def drawShip(self, screen):
         temp = pygame.transform.rotate(self.__ship_image, self.__rotation)
@@ -19,7 +19,7 @@ class Ship:
             self.__gun_front.drawGun(screen)
             self.__gun_back.drawGun(screen)
 
-
+    ### This needs some serious research to know what the actual hit box is
     def hitBox(self):
         temp = pygame.transform.rotate(self.__ship_image, self.__rotation)
         center = (temp.get_size()[0] / 2, temp.get_size()[1] / 2)
@@ -34,12 +34,6 @@ class Ship:
 
     def getRotation(self):
         return self.__rotation
-
-    def moveToggle(self, moves):
-        self.__moves = moves
-
-    def getMoving(self):
-        return self.__moves
 
     def turnShip(self, angle, speed):
         self.__rotation += angle
@@ -66,11 +60,12 @@ class Ship:
             self.__gun_front.setPosition((self.__gun_front.getPosition()[0] + x, self.__gun_front.getPosition()[1] + y))
             self.__gun_back.setPosition((self.__gun_back.getPosition()[0] + x, self.__gun_back.getPosition()[1] + y))
 
-    def addFrontGun(self, gun_image):
-        self.__gun_front = Gun(gun_image,
-                         (self.__position[0] + (self.__ship_image.get_size()[0]/3),
+    def addFrontGun(self):
+        self.__gun_front = Gun((self.__position[0] + (self.__ship_image.get_size()[0]/3),
                           self.__position[1]))
-        self.__gun_back = Gun(gun_image,
-                               (self.__position[0] - (self.__ship_image.get_size()[0] / 3),
+        self.__gun_back = Gun((self.__position[0] - (self.__ship_image.get_size()[0] / 3),
                                 self.__position[1]))
+
+    def fireFrontGun(self):
+        return self.__gun_front.getPosition()
 

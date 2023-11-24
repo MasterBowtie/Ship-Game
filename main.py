@@ -5,7 +5,7 @@ from src import ship_move
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((720, 540))
+    pygame.display.set_mode((720, 540))
     running = True
 
     while(running):

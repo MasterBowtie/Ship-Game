@@ -9,14 +9,17 @@ ACCELERATE = .5
 DRIFT = .1
 
 
+
 def main(filePrefix=""):
     screen = pygame.display.get_surface()
     cursor = pygame.image.load(filePrefix + "images/icon.png")
     pygame.mouse.set_visible(False)
     background = pygame.image.load(filePrefix + "images/background.png")
     center = (screen.get_size()[0] / 2, screen.get_size()[1] / 2)
-    ship = Ship(pygame.image.load(filePrefix + "images/ship.png"), center)
-    ship.addFrontGun(pygame.image.load(filePrefix + "images/gun.png"))
+    ship = Ship(center)
+    ship.addFrontGun()
+
+    # Variable Values and Flags
     ship_drift = 0
     ship_turn_drift = 0
     move_right = False
@@ -35,7 +38,6 @@ def main(filePrefix=""):
             previous = next
 
         screen.blit(background, (0,0))
-
 
         for event in pygame.event.get(pygame.KEYDOWN):
             if event.dict["key"] == 27:
@@ -71,7 +73,7 @@ def main(filePrefix=""):
             ship_turn_drift -= ACCELERATE
         if move_backward:
             ship_turn_drift -= ACCELERATE
-            ship_drift -= ACCELERATE
+            ship_drift -= DRIFT
             if ship_drift < 0:
                 ship_drift = 0
             if ship_turn_drift < 0:
@@ -85,6 +87,9 @@ def main(filePrefix=""):
             ship_turn_drift -= DRIFT
         if ship_turn_drift < 0:
             ship_turn_drift += DRIFT
+
+        ### Firing the Gun
+
 
         ### This section is to limit the ship from leaving the screen
             #Change this to exit Combat

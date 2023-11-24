@@ -1,10 +1,13 @@
 import pygame
 
+IMAGE = "images/gun.png"
+RELOAD = 3 #convert to time, current seconds
 class Gun:
-    def __init__(self, gun, position, rotation=0):
-        self.__gun_image = gun
+    def __init__(self, position, rotation=0):
+        self.__gun_image = pygame.image.load(IMAGE)
         self.__position = position
         self.__rotation = rotation
+        self.__loaded = True
 
     def drawGun(self, screen):
 
@@ -25,3 +28,7 @@ class Gun:
 
     def getPosition(self):
         return self.__position
+
+    def fireGun(self):
+        if self.__loaded:
+            self.__loaded = False

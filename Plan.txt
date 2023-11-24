@@ -1,0 +1,66 @@
+Ship game
+
+Main Menu:
+    Credits
+    Title
+    Menu:
+        New Game
+        Load Game
+        Settings
+        Exit
+
+New Game:
+    Character Name
+
+Load Game:
+    List Saves
+
+City View:
+    City Details
+    Menu:
+        Market
+        Tavern
+        Ship Details
+        Save Game
+        Leave Port
+        Exit Game
+
+Ocean View
+    Compass:
+        Wind Direction/Speed
+    Warning Symbols?
+
+Combat:
+    Weapons
+        Ammo?
+        Reloading
+    Missle:
+        Loaded
+        Vector
+        Speed
+        Target
+
+Pause Menu:
+    Continue
+    Log Book
+    Map?
+    Settings
+    Exit
+
+
+Ship Attributes:
+	Class
+    Health
+    Weapons:
+        Damage
+        Accuracy
+        Range
+        Reload Spead
+    Storage
+    Armor?
+
+City Attributes:
+	Faction
+	Economy
+		Types?
+	Size
