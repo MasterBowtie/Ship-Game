@@ -26,7 +26,7 @@ def main(filePrefix=""):
     move_left = False
     move_forward = False
     move_backward = False
-    missles = []
+    missiles = []
 
     running = True
     previous = time.time()
@@ -64,16 +64,21 @@ def main(filePrefix=""):
 
         for event in pygame.event.get(pygame.MOUSEBUTTONDOWN):
             if event.dict["button"] == 1:
-                missle = ship.fireFrontGun()
-                missle.fire()
-                missles.append(missle)
+                missile = ship.fireFrontGun()
+                if missile is not None:
+                    missile.fire()
+                    missiles.append(missile)
+                missile = ship.fireBackGun()
+                if missile is not None:
+                    missile.fire()
+                    missiles.append(missile)
 
         temp = []
-        for missle in missles:
-            hit = missle.drawMissle(screen)
+        for missile in missiles:
+            hit = missile.drawMissile(screen)
             if not hit:
-                temp.append(missle)
-        missles = temp
+                temp.append(missile)
+        missiles = temp
 
         if move_forward and ship_drift < SPEED:
             ship_drift += ACCELERATE

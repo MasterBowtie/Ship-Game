@@ -69,3 +69,6 @@ class Ship:
     def fireFrontGun(self):
         return self.__gun_front.fireGun()
 
+    def fireBackGun(self):
+        return self.__gun_back.fireGun()
+

@@ -3,7 +3,7 @@ import pygame
 
 IMAGE = "images/missle.png"
 
-class Missle:
+class Missile:
 
     def __init__(self, pos, angle):
         self.__missle_image = pygame.image.load(IMAGE)
@@ -15,18 +15,19 @@ class Missle:
         self.__range = 300
         self.__fired = False
 
-    def drawMissle(self, screen):
+    def drawMissile(self, screen):
         if self.__fired:
             x = math.cos(self.__rotation * (2 * math.pi / 360)) * self.__speed
             y = - math.sin(self.__rotation * (2 * math.pi / 360)) * self.__speed
             self.__position = (self.__position[0] + x, self.__position[1] + y)
         dist = ((self.__position[0] - self.__source[0]) ** 2 + (self.__position[1] - self.__source[1]) ** 2) ** (1 / 2)
+        dist2 = ((self.__position[0] - self.__target[0]) ** 2 + (self.__position[1] - self.__target[1]) ** 2) ** (1 / 2)
 
         temp = pygame.transform.rotate(self.__missle_image, self.__rotation)
         center = (temp.get_size()[0] / 2, temp.get_size()[1] / 2)
         screen.blit(temp, (self.__position[0] - center[0], self.__position[1] - center[1]))
 
-        if dist >= self.__range:
+        if self.__fired and dist >= self.__range or dist2 < 7:
             return True
         return False
 

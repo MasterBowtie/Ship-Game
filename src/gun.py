@@ -1,7 +1,7 @@
 import time
 
 import pygame
-from src.missle import Missle
+from src.missile import Missile
 import math
 
 IMAGE = "images/gun.png"
@@ -12,7 +12,7 @@ class Gun:
         self.__position = position
         self.__rotation = rotation
         self.__loaded = True
-        self.__missle = Missle((position[0] + self.__gun_image.get_size()[0], position[1]), rotation)
+        self.__missile = Missile((position[0] + self.__gun_image.get_size()[0], position[1]), rotation)
         self.__reload_time = 0
 
     def drawGun(self, screen):
@@ -25,15 +25,15 @@ class Gun:
         temp = pygame.transform.rotate(self.__gun_image, self.__rotation)
         center = (temp.get_size()[0]/2, temp.get_size()[1]/2)
         screen.blit(temp, (self.__position[0] - center[0], self.__position[1] - center[1]))
-        if self.__missle is not None:
-            radius = self.__gun_image.get_size()[0]/2 - self.__missle.getSize()[0]/2
+        if self.__missile is not None:
+            radius = self.__gun_image.get_size()[0]/2 - self.__missile.getSize()[0]/2
             x = math.cos(self.__rotation * (2 * math.pi / 360)) * radius + self.__position[0]
             y = - math.sin(self.__rotation * (2 * math.pi / 360)) * radius + self.__position[1]
-            self.__missle.setPosition((x,y), self.__rotation)
-            self.__missle.drawMissle(screen)
+            self.__missile.setPosition((x,y), self.__rotation)
+            self.__missile.drawMissile(screen)
         elif time.time() - self.__reload_time > RELOAD:
-            print(time.time() - self.__reload_time)
-            self.__missle = Missle((self.__position[0] + self.__gun_image.get_size()[0], self.__position[1]), self.__rotation)
+            self.__loaded = True
+            self.__missile = Missile((self.__position[0] + self.__gun_image.get_size()[0], self.__position[1]), self.__rotation)
 
 
 
@@ -45,9 +45,9 @@ class Gun:
         return self.__position
 
     def fireGun(self):
-        temp = self.__missle
+        temp = self.__missile
         if self.__loaded:
             self.__loaded = False
-            self.__missle = None
+            self.__missile = None
             self.__reload_time = time.time()
         return temp
