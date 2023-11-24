@@ -67,5 +67,5 @@ class Ship:
                                 self.__position[1]))
 
     def fireFrontGun(self):
-        return self.__gun_front.getPosition()
+        return self.__gun_front.fireGun()
 

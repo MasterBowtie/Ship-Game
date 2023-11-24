@@ -1,9 +1,11 @@
+import time
+
 import pygame
 from src.missle import Missle
 import math
 
 IMAGE = "images/gun.png"
-RELOAD = 3 #convert to time, current seconds
+RELOAD = 3 #sec
 class Gun:
     def __init__(self, position, rotation=0):
         self.__gun_image = pygame.image.load(IMAGE)
@@ -11,6 +13,7 @@ class Gun:
         self.__rotation = rotation
         self.__loaded = True
         self.__missle = Missle((position[0] + self.__gun_image.get_size()[0], position[1]), rotation)
+        self.__reload_time = 0
 
     def drawGun(self, screen):
 
@@ -28,6 +31,12 @@ class Gun:
             y = - math.sin(self.__rotation * (2 * math.pi / 360)) * radius + self.__position[1]
             self.__missle.setPosition((x,y), self.__rotation)
             self.__missle.drawMissle(screen)
+        elif time.time() - self.__reload_time > RELOAD:
+            print(time.time() - self.__reload_time)
+            self.__missle = Missle((self.__position[0] + self.__gun_image.get_size()[0], self.__position[1]), self.__rotation)
+
+
+
 
     def setPosition(self, position):
         self.__position = position
@@ -36,8 +45,9 @@ class Gun:
         return self.__position
 
     def fireGun(self):
+        temp = self.__missle
         if self.__loaded:
             self.__loaded = False
-            temp = self.__missle
             self.__missle = None
-            return temp
+            self.__reload_time = time.time()
+        return temp
