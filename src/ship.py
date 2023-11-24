@@ -51,7 +51,7 @@ class Ship:
         self.moveShip(speed)
 
 
-    def moveShip(self, speed, axis=None):
+    def moveShip(self, speed):
         x = math.cos(self.__rotation * (2 * math.pi / 360)) * speed
         y = - math.sin(self.__rotation * (2 * math.pi / 360)) * speed
 
